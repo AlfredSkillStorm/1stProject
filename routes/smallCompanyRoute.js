@@ -34,27 +34,39 @@ router.get('/', async (req, res) => {
 });
 
 //for future use
-router.post('/:name', async (req, res) => {
-    try{
-        //console.log("Inside post route");
-        //const data = await findWarehouse('myWarehouse');
-        //const data = await findWarehouse(req.params.name);
-        console.log("Printing Body \n");
-        console.log(req.body);
-        //console.log(data);
-        //res.status(200).json(data);
-        res.status(200).json({message: `${req.params.name} successfully saved!`});
-    } catch(err){
-        res.status(500).json(err);
-    }
-});
+// router.post('/:name', async (req, res) => {
+//     try{
+//         //console.log("Inside post route");
+//         //const data = await findWarehouse('myWarehouse');
+//         //const data = await findWarehouse(req.params.name);
+//         console.log("Printing Body \n");
+//         console.log(req.body);
+//         //console.log(data);
+//         //res.status(200).json(data);
+//         res.status(200).json({message: `${req.params.name} successfully saved!`});
+//     } catch(err){
+//         res.status(500).json(err);
+//     }
+// });
 
-router.post('/', async (req, res) => {
+router.post('/addCompany', async (req, res) => {
     try {
         const data = await addSmallCompany(req.body);
         //const data = await addWarehouse(req.body);
         console.log(data);
         res.sendFile(resolve('public', 'views', 'index.html')); // ./public/views/index.html
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+router.post('/add', async (req, res) => {
+    try {
+        const data = await addSmallCompany(req.body);
+        //const data = await addWarehouse(req.body);
+        console.log(data);
+        //res.sendFile(resolve('public', 'views', 'index.html')); // ./public/views/index.html
+        res.redirect('/');
     } catch (err) {
         res.status(500).json(err);
     }

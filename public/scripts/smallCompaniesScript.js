@@ -7,7 +7,8 @@ function deleteSmallCompany(e) {
         }
     }
     xhr.open('DELETE', `/smallCompany/${e.target.value}`);
-    xhr.send();
+    console.log(e.target.value);
+    //xhr.send();
 }
 
 // for future use
@@ -23,13 +24,20 @@ function deleteSmallCompany(e) {
 //     xhr.send();
 // 
 
+function closeWarning(){
+    const warningModal = document.getElementById('exampleModal');
+    warningModal.style.display = 'none';
+}
+
 function getCompanies() {
 
     // AJAX -> Asynchronous JavaScript And XML
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
+
+        const warningModal = document.getElementById('exampleModal');
         const companies = JSON.parse(xhr.response);
-        const companiesContainer = document.getElementById('smallCompanies');
+        const companiesContainer = document.getElementById('container');
         console.log(companies);
         if (xhr.status === 200) {
             for (company of companies) {
@@ -42,25 +50,33 @@ function getCompanies() {
                 div.id = company.name;
 
                 //get warehouses for each company
-                const warehouses = getWarehouses(company);
+                //const warehouses = getWarehouses(company);
 
                 //Button to delete smallCompany
-                const button = document.createElement('button');
-                button.value = company.name;
-                button.onclick = deleteSmallCompany;
-                button.innerText = "DELETE COMPANY";
+                const deleteButton = document.createElement('button');
+                deleteButton.class = 'btn btn-primary';
+                //deleteButton.data-bs-toggle = "modal";
+                //deleteButton.data-bs-target = "#exampleModal";
+                deleteButton.value = company.name;
+                deleteButton.onclick = function(){
+                    warningModal.style.display = 'block';
+                    const deleteCompany = warningModal.getElementById('deleteButton');
+                    console.log(deleteCompany.value);
+                }
+                //deleteButton.onclick = deleteSmallCompany;
+                deleteButton.innerText = "DELETE COMPANY";
 
                 //Button to add a form that creates a warehouse
-                const button2 = document.createElement('button');
-                button2.value = company.name;
-                button2.onclick = addWarehouseForm;
-                button2.innerText = "ADD WAREHOUSE";
+                //const button2 = document.createElement('button');
+                //button2.value = company.name;
+                //button2.onclick = addWarehouseForm;
+                //button2.innerText = "ADD WAREHOUSE";
 
                 //appending HTML elements
                 div.append(companyName);
-                div.append(button);
-                div.append(button2);
-                div.append(warehouses);
+                div.append(deleteButton);
+                //div.append(button2);
+                //div.append(warehouses);
                 companiesContainer.append(div);
             }
 

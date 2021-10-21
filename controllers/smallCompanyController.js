@@ -9,7 +9,7 @@ const addSmallCompany = async ({name}) => {
         mongoose.connection.close();
 
         console.log("Added Small Company");
-        return {status: 200, message: `${name} successfully saved!`};
+        //return {status: 200, message: `${name} successfully saved!`};
     } catch(err){
         mongoose.connection.close();
         throw {status: 500, error: `Saving company failed`}
