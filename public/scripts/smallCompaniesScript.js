@@ -125,6 +125,6 @@ function setUpCompanyForm(){
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    setUpCompanyForm();
+    //setUpCompanyForm();
     getCompanies();
 });

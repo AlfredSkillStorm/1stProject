@@ -3,6 +3,15 @@ const { resolve } = require('path');
 const { addSmallCompany, deleteSmallCompany, getAllCompanies } = require ('../controllers/smallCompanyController.js');
 
 
+router.get('/add', async (req, res) => {
+    try{
+        //const companies = await getAllCompanies();
+        res.sendFile(resolve('public', 'views', 'addCompany.html'));
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 router.get('/:name', async (req, res) => {
     try{
         console.log("Inside findWarehouse route");
