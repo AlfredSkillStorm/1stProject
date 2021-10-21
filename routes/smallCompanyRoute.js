@@ -75,7 +75,9 @@ router.post('/add', async (req, res) => {
 router.delete('/:name', async (req,res) => {
     try {
         await deleteSmallCompany(req.params.name);
-        res.status(200).json({message: `${req.params.name} successfully deleted!`});
+        //res.status(200).json({message: `${req.params.name} successfully deleted!`});
+        //res.redirect('/');
+        res.sendFile(resolve('public', 'views', 'index.html')); 
     } catch (err) {
         res.status(500).json({error: 'Unable to delete company'});
     }

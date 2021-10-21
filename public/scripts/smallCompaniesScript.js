@@ -1,14 +1,16 @@
 function deleteSmallCompany(e) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
-        console.log(JSON.parse(xhr.response));
+        //console.log(JSON.parse(xhr.response));
         if (xhr.status === 200) {
-            e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+            //e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+            location.reload();
         }
     }
     xhr.open('DELETE', `/smallCompany/${e.target.value}`);
+    console.log(e.target);
     console.log(e.target.value);
-    //xhr.send();
+    xhr.send();
 }
 
 // for future use
@@ -38,9 +40,12 @@ function getCompanies() {
         const warningModal = document.getElementById('exampleModal');
         const companies = JSON.parse(xhr.response);
         const companiesContainer = document.getElementById('container');
+        const deleteCompany = document.getElementById('deleteButton');
+        deleteCompany.onclick = deleteSmallCompany;
         console.log(companies);
         if (xhr.status === 200) {
             for (company of companies) {
+                const textCompName = company.name;
                 const div = document.createElement('div');
                 const companyName = document.createElement('h2');
                 companyName.textContent = company.name;
@@ -60,8 +65,9 @@ function getCompanies() {
                 deleteButton.value = company.name;
                 deleteButton.onclick = function(){
                     warningModal.style.display = 'block';
-                    const deleteCompany = warningModal.getElementById('deleteButton');
-                    console.log(deleteCompany.value);
+                    const tempDeleteComp = document.getElementById('deleteButton');
+                    tempDeleteComp.value = textCompName;
+                    console.log(tempDeleteComp.value);
                 }
                 //deleteButton.onclick = deleteSmallCompany;
                 deleteButton.innerText = "DELETE COMPANY";
