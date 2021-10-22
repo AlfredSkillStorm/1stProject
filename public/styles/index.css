@@ -1,4 +1,4 @@
-.smallCompanies {
+/* .smallCompanies {
     border: 3px solid black;
 }
 
@@ -19,15 +19,15 @@
 .warehousesContainer {
     display: flex;
     flex-direction: column;
-}
+} */
 
 .companyContainer {
-    display:flex;
-    flex-direction: column;
-    background-color: maroon;
+    /* display:flex;
+    flex-direction: column; */
+    background-color: lightgray;
 }
 
-.itemsContainer {
+/* .itemsContainer {
     display: flex;
     flex-direction: column;
     background-color: green; 
@@ -73,4 +73,4 @@ body{
     align-items: center;
     background-color: moccasin;
     border: 2px solid moccasin;
-}
+} */

@@ -3,6 +3,15 @@ const { resolve } = require('path');
 const { addSmallCompany, deleteSmallCompany, getAllCompanies } = require ('../controllers/smallCompanyController.js');
 
 
+router.get('/add', async (req, res) => {
+    try{
+        //const companies = await getAllCompanies();
+        res.sendFile(resolve('public', 'views', 'addCompany.html'));
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 router.get('/:name', async (req, res) => {
     try{
         console.log("Inside findWarehouse route");
@@ -25,22 +34,22 @@ router.get('/', async (req, res) => {
 });
 
 //for future use
-router.post('/:name', async (req, res) => {
-    try{
-        //console.log("Inside post route");
-        //const data = await findWarehouse('myWarehouse');
-        //const data = await findWarehouse(req.params.name);
-        console.log("Printing Body \n");
-        console.log(req.body);
-        //console.log(data);
-        //res.status(200).json(data);
-        res.status(200).json({message: `${req.params.name} successfully saved!`});
-    } catch(err){
-        res.status(500).json(err);
-    }
-});
+// router.post('/:name', async (req, res) => {
+//     try{
+//         //console.log("Inside post route");
+//         //const data = await findWarehouse('myWarehouse');
+//         //const data = await findWarehouse(req.params.name);
+//         console.log("Printing Body \n");
+//         console.log(req.body);
+//         //console.log(data);
+//         //res.status(200).json(data);
+//         res.status(200).json({message: `${req.params.name} successfully saved!`});
+//     } catch(err){
+//         res.status(500).json(err);
+//     }
+// });
 
-router.post('/', async (req, res) => {
+router.post('/addCompany', async (req, res) => {
     try {
         const data = await addSmallCompany(req.body);
         //const data = await addWarehouse(req.body);
@@ -51,10 +60,24 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.post('/add', async (req, res) => {
+    try {
+        const data = await addSmallCompany(req.body);
+        //const data = await addWarehouse(req.body);
+        console.log(data);
+        //res.sendFile(resolve('public', 'views', 'index.html')); // ./public/views/index.html
+        res.redirect('/');
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 router.delete('/:name', async (req,res) => {
     try {
         await deleteSmallCompany(req.params.name);
-        res.status(200).json({message: `${req.params.name} successfully deleted!`});
+        //res.status(200).json({message: `${req.params.name} successfully deleted!`});
+        //res.redirect('/');
+        res.sendFile(resolve('public', 'views', 'index.html')); 
     } catch (err) {
         res.status(500).json({error: 'Unable to delete company'});
     }
