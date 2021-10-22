@@ -64,6 +64,12 @@ function getCompanies() {
                 //adding Bootstrap attributes to button
                 deleteButton.setAttribute('data-bs-toggle','modal');
                 deleteButton.setAttribute('data-bs-target','#exampleModal');
+
+                //adding onclick function to delete button
+                deleteButton.onclick = function() {
+                    deleteCompany.value = textCompName;
+                    console.log(deleteCompany.value);
+                }
             
                 //setting text of button
                 deleteButton.innerText = "DELETE COMPANY";
