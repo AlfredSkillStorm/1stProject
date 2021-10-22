@@ -45,18 +45,25 @@ function getCompanies() {
                 const companyName = document.createElement('h2');
                 companyName.textContent = company.name;
                 companyName.style.textAlign = 'center';
-                div.className = 'container rounded companyContainer';
+                div.className = 'container rounded companyContainer col-6';
                 div.id = company.name;
 
                 //creating button group; two buttons
                 //viewButton to view warehouses
                 //deleteButton to delete company
                 const buttonGroup = document.createElement('div');
-                buttonGroup.className= 'd-grid gap-2 col-6 mx-auto';
+                buttonGroup.className= 'd-grid gap-3 col-5 mx-auto';
+
+                //Button to view smallCompany details
+                const viewButton = document.createElement('a');
+                viewButton.type = 'button'
+                viewButton.className = 'btn btn-primary';
+                viewButton.href = 'warehouse';
+                viewButton.innerText = 'View Warehouses';
 
                 //Button to delete smallCompany
                 const deleteButton = document.createElement('button');
-                deleteButton.className = 'btn btn-primary btn-lrge';
+                deleteButton.className = 'btn btn-primary btn-danger mb-3';
 
                 //setting value of button
                 deleteButton.value = company.name;
@@ -78,6 +85,7 @@ function getCompanies() {
                 const hr = document.createElement('hr');
                 
                 //appending elements
+                buttonGroup.append(viewButton);
                 buttonGroup.append(deleteButton);
                 div.append(companyName);
                 div.append(buttonGroup);
