@@ -51,15 +51,17 @@ function getCompanies() {
                 companyName.textContent = company.name;
                 companyName.style.textAlign = 'center';
                 //div.innerText = `Name: \n\n`;
-                div.className = 'companyContainer';
+                div.className = 'container rounded companyContainer';
                 div.id = company.name;
 
                 //get warehouses for each company
                 //const warehouses = getWarehouses(company);
+                const buttonGroup = document.createElement('div');
+                buttonGroup.className= 'd-grid gap-2 col-6 mx-auto';
 
                 //Button to delete smallCompany
                 const deleteButton = document.createElement('button');
-                deleteButton.class = 'btn btn-primary';
+                deleteButton.className = 'btn btn-primary btn-lrge';
                 //deleteButton.data-bs-toggle = "modal";
                 //deleteButton.data-bs-target = "#exampleModal";
                 deleteButton.value = company.name;
@@ -79,11 +81,15 @@ function getCompanies() {
                 //button2.innerText = "ADD WAREHOUSE";
 
                 //appending HTML elements
+
+                const hr = document.createElement('hr');
+                buttonGroup.append(deleteButton);
                 div.append(companyName);
-                div.append(deleteButton);
+                div.append(buttonGroup);
                 //div.append(button2);
                 //div.append(warehouses);
                 companiesContainer.append(div);
+                companiesContainer.append(hr);
             }
 
             //following code test findWarehouse functionality
