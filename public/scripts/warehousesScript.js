@@ -165,58 +165,18 @@ function deleteWarehouse(e){
     xhr.send();
 }
 
-function getWarehouses(company){
-    const warehouses = document.createElement('div');
-    warehouses.className = 'warehousesContainer'
+function getWarehouses(){
+    //set header to company name
+    console.log(window.location.href);
+    const companyHeader = document.getElementById('companyName');
+    const companyString = window.location.href.split('\/')[4].replace('%20',' ');
+    //console.log(companyString[4]);
+    companyHeader.innerText = companyString;
+
     
-    for(warehouse of company.warehouses){
-        const div = document.createElement('div');
-        const namePara = document.createElement('p');
-        namePara.textContent = warehouse.warehouseName;
-        //const name = div.innerText = warehouse.warehouseName;
-
-        //get items for each warehouse
-        const items = getItems(warehouse, company.name);
-        items.className = 'itemsContainer';
-
-        //Button to delete warehouse
-        const button = document.createElement('button');
-        button.value = warehouse.warehouseName;
-        button.onclick = deleteWarehouse;
-        button.innerText = "DELETE WAREHOUSE";
-        button.style.display = 'none';
-
-        //Button to add a form that creates a item
-        const button2 = document.createElement('button');
-        button2.value = warehouse.warehouseName;
-        button2.onclick = addItemForm;
-        button2.innerText = "ADD ITEM";
-        button2.style.display = 'none';
-
-        div.className = 'warehouseDiv';
-        div.id = 'warehouseDiv';
-        namePara.onclick = () => {
-            if(items.style.display === 'none'){
-                items.style.display = 'block';
-                button.style.display = 'block';
-                button2.style.display = 'block';
-            }
-            else {
-                items.style.display = 'none';
-                button.style.display = 'none';
-                button2.style.display = 'none';
-            }
-            //console.log(`Inside ${name}'s div!'`);
-        }
-
-        //console.log(warehouse);
-        div.append(namePara);
-        div.append(button);
-        div.append(button2);
-        div.append(items);
-        warehouses.append(div);
-        //warehouses.append(button);
-        //warehouses.append(button2);
-    }
-    return warehouses;
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+    //setUpCompanyForm();
+    getWarehouses();
+});

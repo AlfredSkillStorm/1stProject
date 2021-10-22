@@ -3,7 +3,7 @@ const { resolve } = require('path');
 const { addWarehouse, deleteWarehouse } = require ('../controllers/warehouseController.js');
 
 
-router.get('/', async (req, res) => {
+router.get('/:name', async (req, res) => {
     try{
         //console.log("Printing Body \n");
         //console.log(req.body);

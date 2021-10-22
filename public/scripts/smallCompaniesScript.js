@@ -58,7 +58,7 @@ function getCompanies() {
                 const viewButton = document.createElement('a');
                 viewButton.type = 'button'
                 viewButton.className = 'btn btn-primary';
-                viewButton.href = 'warehouse';
+                viewButton.href = `warehouse/${textCompName}`;
                 viewButton.innerText = 'View Warehouses';
 
                 //Button to delete smallCompany
