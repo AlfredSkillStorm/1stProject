@@ -62,9 +62,10 @@ function getCompanies() {
                 //Button to delete smallCompany
                 const deleteButton = document.createElement('button');
                 deleteButton.className = 'btn btn-primary btn-lrge';
-                //deleteButton.data-bs-toggle = "modal";
-                //deleteButton.data-bs-target = "#exampleModal";
+
                 deleteButton.value = company.name;
+                deleteButton.setAttribute('data-bs-toggle','modal');
+                deleteButton.setAttribute('data-bs-target','#exampleModal');
                 deleteButton.onclick = function(){
                     warningModal.style.display = 'block';
                     const tempDeleteComp = document.getElementById('deleteButton');
