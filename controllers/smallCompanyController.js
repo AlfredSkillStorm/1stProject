@@ -16,6 +16,18 @@ const addSmallCompany = async ({name}) => {
     }
 };
 
+const getSmallCompany = async ({name}) => {
+    try{
+        await mongoose.connect(process.env.ATLAS_URL);
+        const smallCompany = await SmallCompany.findOne({name});
+        mongoose.connection.close();
+        return smallCompany;
+    } catch(err){
+        mongoose.connection.close();
+        throw {status: 500, error: 'Finding company failed'}
+    }
+};
+
 const findWarehouse = async (name) => {
     try{
         console.log("inside findWarehouse function")
@@ -107,5 +119,6 @@ const getAllCompanies = async () => {
 module.exports = {
     addSmallCompany,
     deleteSmallCompany,
-    getAllCompanies
+    getAllCompanies,
+    getSmallCompany
 }

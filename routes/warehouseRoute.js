@@ -1,10 +1,24 @@
 const router = require('express').Router();
 const { resolve } = require('path');
 const { addWarehouse, deleteWarehouse } = require ('../controllers/warehouseController.js');
+const { getSmallCompany } = require ('../controllers/smallCompanyController.js');
 
 router.get('/:name', async (req, res) => {
     try{
         res.sendFile(resolve('public', 'views', 'companyView.html')); // ./public/views/index.html
+    } catch(err){
+        res.status(500).json(err);
+    }
+});
+
+router.put('/', async (req, res) => {
+    try{
+        console.log('Inside get route');
+        console.log(req.body);
+        const data = await getSmallCompany(req.body);
+        console.log(data);
+        res.status(200).json({message: 'getting Company succeeded'});
+        //res.sendFile(resolve('public', 'views', 'companyView.html')); // ./public/views/index.html
     } catch(err){
         res.status(500).json(err);
     }

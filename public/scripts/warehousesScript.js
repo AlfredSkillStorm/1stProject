@@ -173,7 +173,22 @@ function getWarehouses(){
     //console.log(companyString[4]);
     companyHeader.innerText = companyString;
 
-    
+    let data = {};
+    data.name = companyString;
+
+    const jsonData = JSON.stringify(data);
+
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function(){
+        if (xhr.status===200){
+            console.log('returned safely');
+        }
+    }
+
+    console.log(jsonData);
+    xhr.open('PUT','/warehouse');
+    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+    xhr.send(jsonData);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
