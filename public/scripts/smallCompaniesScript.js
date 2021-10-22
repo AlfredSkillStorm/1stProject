@@ -26,11 +26,6 @@ function deleteSmallCompany(e) {
 //     xhr.send();
 // 
 
-function closeWarning(){
-    const warningModal = document.getElementById('exampleModal');
-    warningModal.style.display = 'none';
-}
-
 function getCompanies() {
 
     // AJAX -> Asynchronous JavaScript And XML
@@ -50,12 +45,12 @@ function getCompanies() {
                 const companyName = document.createElement('h2');
                 companyName.textContent = company.name;
                 companyName.style.textAlign = 'center';
-                //div.innerText = `Name: \n\n`;
                 div.className = 'container rounded companyContainer';
                 div.id = company.name;
 
-                //get warehouses for each company
-                //const warehouses = getWarehouses(company);
+                //creating button group; two buttons
+                //viewButton to view warehouses
+                //deleteButton to delete company
                 const buttonGroup = document.createElement('div');
                 buttonGroup.className= 'd-grid gap-2 col-6 mx-auto';
 
@@ -63,43 +58,27 @@ function getCompanies() {
                 const deleteButton = document.createElement('button');
                 deleteButton.className = 'btn btn-primary btn-lrge';
 
+                //setting value of button
                 deleteButton.value = company.name;
+
+                //adding Bootstrap attributes to button
                 deleteButton.setAttribute('data-bs-toggle','modal');
                 deleteButton.setAttribute('data-bs-target','#exampleModal');
-                deleteButton.onclick = function(){
-                    warningModal.style.display = 'block';
-                    const tempDeleteComp = document.getElementById('deleteButton');
-                    tempDeleteComp.value = textCompName;
-                    console.log(tempDeleteComp.value);
-                }
-                //deleteButton.onclick = deleteSmallCompany;
+            
+                //setting text of button
                 deleteButton.innerText = "DELETE COMPANY";
 
-                //Button to add a form that creates a warehouse
-                //const button2 = document.createElement('button');
-                //button2.value = company.name;
-                //button2.onclick = addWarehouseForm;
-                //button2.innerText = "ADD WAREHOUSE";
-
-                //appending HTML elements
-
+                //creating horizontal line to separate companies
                 const hr = document.createElement('hr');
+                
+                //appending elements
                 buttonGroup.append(deleteButton);
                 div.append(companyName);
                 div.append(buttonGroup);
-                //div.append(button2);
-                //div.append(warehouses);
                 companiesContainer.append(div);
                 companiesContainer.append(hr);
             }
 
-            //following code test findWarehouse functionality
-            // const button3 = document.createElement('button');
-            // button3.value = 'myWarehouse';
-            // button3.onclick = findWarehouse;
-            // button3.innerText = "Find Warehouse";
-
-            // warehousesContainer.append(button3);
         } else {
             // Handles error
             companiesContainer.innerText = `${companies.error}`;
@@ -107,50 +86,6 @@ function getCompanies() {
     }
     xhr.open('GET', '/smallCompany');
     xhr.send();
-}
-
-function setUpCompanyForm(){
-
-    const addCompany = document.createElement('h1');
-    addCompany.textContent = 'Add Company';
-
-    const companyForm = document.createElement('form');
-    companyForm.method='POST';
-    companyForm.action='smallCompany';
-
-    const nameLabel = document.createElement('label');
-    nameLabel.textContent = 'Company Name:';
-
-    const companyName = document.createElement('input');
-    companyName.type = 'text';
-    companyName.name = 'name'; 
-
-    const submitForm = document.createElement('input');
-    submitForm.type = 'submit';
-    submitForm.value = 'Submit';
-
-    companyForm.append(nameLabel);
-    companyForm.append(companyName);
-    companyForm.append(submitForm);
-    companyForm.style.display = 'none';
-    
-    const openForm = document.createElement('div');
-    openForm.className = 'companyForm';
-    
-    addCompany.onclick = () => {
-        if(companyForm.style.display === 'none'){
-            companyForm.style.display = 'block';
-            addCompany.textContent = 'Cancel'
-        }
-        else{
-            companyForm.style.display = 'none';
-            addCompany.textContent = 'Add Content';
-        }
-    }
-    
-    openForm.append(addCompany);
-    openForm.append(companyForm);
-    document.body.append(openForm);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
