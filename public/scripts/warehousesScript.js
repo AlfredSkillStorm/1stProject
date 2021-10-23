@@ -173,15 +173,25 @@ function getWarehouses(){
     //console.log(companyString[4]);
     companyHeader.innerText = companyString;
 
+    //create req.body and JSON.stringify
     let data = {};
     data.name = companyString;
-
     const jsonData = JSON.stringify(data);
+
+    const warehousesContainer = document.getElementById('container');
 
     const xhr = new XMLHttpRequest();
     xhr.onload = function(){
+
+        const company = JSON.parse(xhr.response);
+        console.log(company);
         if (xhr.status===200){
-            console.log('returned safely');
+            for(warehouse of company.warehouses){
+                
+            }
+        }
+        else{
+            warehousesContainer.innerText = `${company.error}`;
         }
     }
 
