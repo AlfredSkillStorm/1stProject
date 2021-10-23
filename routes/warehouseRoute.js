@@ -3,6 +3,14 @@ const { resolve } = require('path');
 const { addWarehouse, deleteWarehouse, getWarehouses } = require ('../controllers/warehouseController.js');
 //const { getSmallCompany } = require ('../controllers/smallCompanyController.js');
 
+router.get('/:name/add', async (req, res) => {
+    try{
+        res.sendFile(resolve('public', 'views', 'addWarehouse.html')); // ./public/views/index.html
+    } catch(err){
+        res.status(500).json(err);
+    }
+});
+
 router.get('/:name', async (req, res) => {
     try{
         res.sendFile(resolve('public', 'views', 'companyView.html')); // ./public/views/index.html
@@ -25,12 +33,14 @@ router.put('/', async (req, res) => {
     }
 });
 
-router.post('/:name', async (req, res) => {
+//Add warehouse to company
+router.post('/:name/add', async (req, res) => {
     try{
-        console.log("Printing Body \n");
-        console.log(req.body);
-        const data = await addWarehouse(req.params.name ,req.body);
-        res.status(200).json({message: 'warehouseRoute was successful!!'});
+        console.log("About to add Warehouse");
+        //console.log(req.body);
+        await addWarehouse(req.params.name ,req.body);
+        //res.status(200).json({message: 'warehouseRoute was successful!!'});
+        res.redirect(`/warehouse/${req.params.name}`);
     } catch(err){
         res.status(500).json(err);
     }

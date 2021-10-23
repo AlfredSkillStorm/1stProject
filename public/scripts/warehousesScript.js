@@ -31,6 +31,12 @@ function addWarehouse(e){
     xhr.send(jsonData);
 }
 
+function setUpWarehouseButton(){
+    const addWarehouseButton = document.getElementById('addWarehouseButton');
+    const companyString = window.location.href.split('\/')[4].replace('%20',' ');
+    addWarehouseButton.href = `${companyString}/add`;
+}
+
 function cancelWarehouseForm(e){
     //console.log(e);
     //console.log(e.target.parentNode.parentNode.id);
@@ -166,11 +172,12 @@ function deleteWarehouse(e){
 }
 
 function getWarehouses(){
+    
+    //console.log(window.location.href);
+
     //set header to company name
-    console.log(window.location.href);
     const companyHeader = document.getElementById('companyName');
     const companyString = window.location.href.split('\/')[4].replace('%20',' ');
-    //console.log(companyString[4]);
     companyHeader.innerText = companyString;
 
     //create req.body and JSON.stringify
@@ -180,18 +187,96 @@ function getWarehouses(){
 
     const warehousesContainer = document.getElementById('container');
 
+    //XHR request to middleware
     const xhr = new XMLHttpRequest();
     xhr.onload = function(){
 
-        const company = JSON.parse(xhr.response);
-        console.log(company);
+        //grab all warehouses within company
+        const warehouses = JSON.parse(xhr.response);
+
+        //create warehouse navigation
+        const warehouseNavigation = document.createElement('nav');
+
+        //create individual warehouse content container
+        const warehouseTabContent = document.createElement('div');
+        warehouseTabContent.className = 'tab-content';
+        warehouseTabContent.id = 'nav-tabContent';
+
+        //Create div for nav tabs
+        const navDiv = document.createElement('div');
+        navDiv.className = 'nav nav-tabs';
+        navDiv.id = 'nav-tab';
+        navDiv.setAttribute('role','tablist');
+
         if (xhr.status===200){
-            for(warehouse of company.warehouses){
+            let counter = 0;
+
+            for(wr of warehouses){
+
+                //Name of warehouse
+                let textWarehouse = wr.warehouseName;
+
+                //modified name for warehouse
+                //Bootstrap attributes do not play well with commas, hence the replace function
+                let altTextWarehouse = wr.warehouseName.replace(',','-');
                 
+                //nav button to display warehouse info items
+                const navButton = document.createElement('button');
+
+                //tab content to display items of warehouse
+                const tabContent = document.createElement('div');
+
+                //setting first warehouse as active
+                if(counter == 0){
+                    navButton.className = 'nav-link active';
+                    tabContent.className = 'tab-pane fade show active';
+                    navButton.setAttribute('aria-controls','true');
+                }
+                else{
+                    navButton.className = 'nav-link';
+                    tabContent.className = 'tab-pane fade';
+                    navButton.setAttribute('aria-controls','false');
+                }
+
+                //setting navButton attributes
+                navButton.id =`nav-${altTextWarehouse}-tab`;
+                navButton.setAttribute('data-bs-toggle','tab');
+                navButton.setAttribute('data-bs-target',`#nav-${altTextWarehouse}`);
+                navButton.setAttribute('role','tab');
+                navButton.type='button';
+                navButton.setAttribute('aria-controls',`nav-${altTextWarehouse}`);
+                navButton.textContent = `${textWarehouse}`;
+                
+                //setting tabContent attributes
+                tabContent.id = `nav-${altTextWarehouse}`;
+                tabContent.setAttribute('role','tabpanel');
+                tabContent.setAttribute('aria-labelledby',`nav-${altTextWarehouse}-tab`);
+
+                //grab items and store them in variable
+                const items = wr.items;
+                const itemsContainer = document.createElement('table');
+                
+                if(items.length !== 0){
+                    console.log(items);
+                }
+                else{
+                    itemsContainer.textContent = 'No items to display!';
+                }
+
+                //append individual button and tabContent to holders
+                navDiv.append(navButton);
+                tabContent.append(itemsContainer);
+                warehouseTabContent.append(tabContent);
+                counter++;
             }
+
+            //append contentHolders to container
+            warehouseNavigation.append(navDiv);
+            warehousesContainer.append(warehouseNavigation);
+            warehousesContainer.append(warehouseTabContent);
         }
         else{
-            warehousesContainer.innerText = `${company.error}`;
+            warehousesContainer.innerText = `${warehouses.error}`;
         }
     }
 
@@ -203,5 +288,6 @@ function getWarehouses(){
 
 window.addEventListener('DOMContentLoaded', () => {
     //setUpCompanyForm();
+    setUpWarehouseButton();
     getWarehouses();
 });
