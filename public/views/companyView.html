@@ -45,11 +45,17 @@
                 </div>
                 <div class="modal-body">
                     <form id='addItemForm' action="/item/" method="POST">
-                        <label>Item name: </label>
-                        <input type="text" name="itemName">
-                        <label>Price: </label>
-                        <input type="text" name="price">
-                        <input type="submit" value="Add Item">
+                        <div class='mx-auto'>
+                            <label class='form-label' for='itemName'>Item name <label>
+                            <input type="text" name="itemName" class='form-control' placeholder='Item Name' id='itemName'>
+                        </div>
+                        <div class='mx-auto'>
+                            <label class='form-label' for='price'>Price <label>
+                            <input type="text" name="price" class='form-control' placeholder='.99, 3.99, etc...' id='price'>
+                        </div>
+                        <div class ='d-grid gap-2 col-3 mx-auto'>
+                            <input type="submit" value="Submit" class='btn btn-primary'>   
+                        </div>  
                     </form>
                 </div>
                 <div class="modal-footer">

@@ -22,10 +22,16 @@
           <li class="nav-item"><a href="/contactUs" class="nav-link">Contact Us</a></li>
         </ul>
     </header>
-    <form action="add" method="POST">
-        <label>Name: <label>
-        <input type="text" name="name">
-        <input type="submit" value="Submit">
+
+    <h1 style='text-align: center;'>Add Company</h1>
+    <form action="add" method="POST" class='d-flex flex-column justify-content-center'>
+        <div class='mx-auto'>
+            <label class='form-label' for='companyName'>Name <label>
+            <input type="text" name="name" class='form-control' placeholder='Company Name' id='companyName'>
+        </div>
+        <div class ='d-grid gap-2 col-3 mx-auto'>
+          <input type="submit" value="Submit" class='btn btn-primary'>   
+        </div>     
     </form>
 </body>
 </html>

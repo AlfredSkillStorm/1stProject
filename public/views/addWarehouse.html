@@ -22,12 +22,21 @@
           <li class="nav-item"><a href="/contactUs" class="nav-link">Contact Us</a></li>
         </ul>
     </header>
-    <form action='' method="POST">
-        <label>Name: <label>
-        <input type="text" name="warehouseName">
-        <label>Max Capacity: <label>
-        <input type="text" name="maxLoad">
-        <input type="submit" value="Submit">
+
+    <h1 style='text-align: center;'>Add Company</h1>
+    <form action='' method="POST" class='d-flex flex-column justify-content-center'>
+        <div class='mx-auto'>
+          <label class='form-label' for='wrName'>Name <label>
+          <input type="text" name="warehouseName" class='form-control' placeholder='Warehouse Name' id='wrName'>
+        </div>
+
+        <div class='mx-auto'>
+          <label class='form-label' for='wrMaxCapacity'>Max Capacity <label>
+          <input type="text" name="name" class='form-control' placeholder='1,2,etc...' id='wrMaxCapacity'>
+        </div>
+        <div class ='d-grid gap-2 col-3 mx-auto'>
+          <input type="submit" value="Submit" class='btn btn-primary'>   
+        </div>     
     </form>
 </body>
 </html>
