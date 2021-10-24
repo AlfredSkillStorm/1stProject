@@ -27,6 +27,10 @@
     background-color: lightgray;
 }
 
+.body-home{
+    background-image: url('../images/companyImage.jpg');
+}
+
 /* .itemsContainer {
     display: flex;
     flex-direction: column;
