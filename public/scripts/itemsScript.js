@@ -34,6 +34,8 @@ function getItems(wr){
             const deleteButton = document.createElement('td');
             const deleteAction = document.createElement('button');
             deleteAction.value = `${wr.warehouseName}&${item.itemName}`;
+            deleteAction.type='button';
+            deleteAction.className = 'btn-danger';
             deleteAction.innerText = 'X';
             deleteAction.onclick = deleteWarehouseItem;
 
