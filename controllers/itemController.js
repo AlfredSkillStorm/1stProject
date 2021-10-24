@@ -56,12 +56,10 @@ const deleteItem = async (name, warehouseName, itemName) => {
         console.log('preparing to delete');
         await mongoose.connect(process.env.ATLAS_URL);4
         await smallCompany.save();
-        //await SmallCompany.findOneAndReplace({name}, smallCompany);
 
         console.log('finished deleting');
 
         mongoose.connection.close();
-        //console.log("Deleted Small Company");
         return;
     } catch (err) {
         mongoose.connection.close();

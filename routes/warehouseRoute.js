@@ -1,11 +1,10 @@
 const router = require('express').Router();
 const { resolve } = require('path');
 const { addWarehouse, deleteWarehouse, getWarehouses } = require ('../controllers/warehouseController.js');
-//const { getSmallCompany } = require ('../controllers/smallCompanyController.js');
 
 router.get('/:name/add', async (req, res) => {
     try{
-        res.sendFile(resolve('public', 'views', 'addWarehouse.html')); // ./public/views/index.html
+        res.sendFile(resolve('public', 'views', 'addWarehouse.html')); 
     } catch(err){
         res.status(500).json(err);
     }
@@ -13,7 +12,7 @@ router.get('/:name/add', async (req, res) => {
 
 router.get('/:name', async (req, res) => {
     try{
-        res.sendFile(resolve('public', 'views', 'companyView.html')); // ./public/views/index.html
+        res.sendFile(resolve('public', 'views', 'companyView.html'));
     } catch(err){
         res.status(500).json(err);
     }
@@ -24,10 +23,7 @@ router.put('/', async (req, res) => {
         console.log('Inside get route');
         console.log(req.body);
         const data = await getWarehouses(req.body);
-        //console.log(data);
         res.status(200).json(data);
-        //return data;
-        //res.sendFile(resolve('public', 'views', 'companyView.html')); // ./public/views/index.html
     } catch(err){
         res.status(500).json(err);
     }
@@ -46,6 +42,7 @@ router.post('/:name/add', async (req, res) => {
     }
 });
 
+//delete a warehouse
 router.delete('/:name&:warehouseName', async (req,res) => {
     try {
         console.log(req.params.name);

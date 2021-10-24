@@ -39,25 +39,13 @@ const deleteWarehouse = async (name, warehouseName) => {
     try {
         await mongoose.connect(process.env.ATLAS_URL);
         const smallCompany = await SmallCompany.findOne({name});
-        //await SmallCompany.deleteOne({$pull: {warehouses: [{warehouseName}]}});
-        //await SmallCompany.deleteOne({name});
         console.log('Printing small company details');
         console.log(smallCompany);
         console.log(smallCompany.warehouses);
 
-        // const warehouses = smallCompany.warehouses;
-
-        // const updatedWarehouses = warehouses.filter(warehouse => warehouse.warehouseName !== warehouseName);
-
-        // console.log(updatedWarehouses);
-        //await SmallCompany.deleteOne({$pull: {warehouses: [{warehouseName}]}});
-        //await SmallCompany.updateOne({name},{warehouses: updatedWarehouses});
         await SmallCompany.updateOne({name},{$pull: {warehouses: {warehouseName}}});
 
-        //console.log('Printing small company details after delete');
-        //console.log(smallCompany.warehouses);
         mongoose.connection.close();
-        //console.log("Deleted Small Company");
         return;
     } catch (err) {
         mongoose.connection.close();

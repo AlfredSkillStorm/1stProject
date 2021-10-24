@@ -17,8 +17,6 @@ router.post('/:name&:warehouseName', async (req, res) => {
 router.delete('/:name&:warehouseName&:itemName', async (req,res) => {
     try {
         console.log(req.params.name);
-        //console.log(req.body);
-        //console.log(req.params.warehouseName);
         await deleteItem(req.params.name, req.params.warehouseName, req.params.itemName);
         res.status(200).json({message: `Item successfully deleted!`});
     } catch (err) {

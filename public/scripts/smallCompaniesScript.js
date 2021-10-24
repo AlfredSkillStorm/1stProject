@@ -1,9 +1,7 @@
 function deleteSmallCompany(e) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
-        //console.log(JSON.parse(xhr.response));
         if (xhr.status === 200) {
-            //e.target.parentNode.parentNode.removeChild(e.target.parentNode);
             location.reload();
         }
     }
@@ -13,22 +11,8 @@ function deleteSmallCompany(e) {
     xhr.send();
 }
 
-// for future use
-// function findWarehouse(e){
-//     const xhr = new XMLHttpRequest();
-//     xhr.onload = function() {
-//         console.log(JSON.parse(xhr.response));
-//         if (xhr.status === 200) {
-//             //e.target.parentNode.parentNode.removeChild(e.target.parentNode);
-//         }
-//     }
-//     xhr.open('GET', `/warehouse/${e.target.value}`);
-//     xhr.send();
-// 
-
 function getCompanies() {
 
-    // AJAX -> Asynchronous JavaScript And XML
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
 
@@ -103,6 +87,5 @@ function getCompanies() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    //setUpCompanyForm();
     getCompanies();
 });
