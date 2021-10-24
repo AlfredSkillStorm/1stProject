@@ -2,6 +2,7 @@ function getItems(wr){
     //grab items and store them in variable
     const items = wr.items;
     const itemsContainer = document.createElement('table');
+    itemsContainer.className = 'table table-striped';
 
     const itemsTableBody = document.createElement('tbody');
     
