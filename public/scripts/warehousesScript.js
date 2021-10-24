@@ -149,8 +149,10 @@ function deleteWarehouseItem(e){
 
 function deleteWarehouse(e){
     console.log('Inside deleteWarehouse function');
-    console.log(e.target.parentNode.parentNode.parentNode.id);
-    console.log(e.target.value);
+    //console.log(e.target.parentNode.parentNode.parentNode.id);
+    //console.log(e.target.value);
+
+    const companyName = document.getElementById('companyName').textContent;
 
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
@@ -158,15 +160,15 @@ function deleteWarehouse(e){
         if (xhr.status === 200 & xhr.readyState === 4) {
             
             //Following code to go back to the webpage
-            const xhrReload = new XMLHttpRequest();
-            xhrReload.open('GET', `/`);
-            xhrReload.send();
+            // const xhrReload = new XMLHttpRequest();
+            // xhrReload.open('GET', `/`);
+            // xhrReload.send();
             
             location.reload();
         }
     }
 
-    xhr.open('DELETE', `/warehouse/${e.target.parentNode.parentNode.parentNode.id}&${e.target.value}`);
+    xhr.open('DELETE', `/warehouse/${companyName}&${e.target.value}`);
     //xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
     xhr.send();
 }
@@ -260,12 +262,20 @@ function getWarehouses(){
                     console.log(items);
                 }
                 else{
-                    itemsContainer.textContent = 'No items to display!';
+                    itemsContainer.textContent = 'No items to display! Add an item!';
                 }
+
+                //button to delete warehouse
+                const deleteButton = document.createElement('button');
+                deleteButton.value = textWarehouse;
+                deleteButton.textContent = 'DELETE WAREHOUSE';
+                deleteButton.onclick = deleteWarehouse
+                deleteButton.className = 'btn btn-primary btn-danger';
 
                 //append individual button and tabContent to holders
                 navDiv.append(navButton);
                 tabContent.append(itemsContainer);
+                tabContent.append(deleteButton);
                 warehouseTabContent.append(tabContent);
                 counter++;
             }
