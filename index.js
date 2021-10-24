@@ -15,7 +15,17 @@ app.use('/warehouse', require('./routes/warehouseRoute.js'));
 app.use('/item', require('./routes/itemRoute.js'));
 
 app.get('/', (req,res) => {
-    res.sendFile(resolve('public', 'views', 'index.html'))
+    res.sendFile(resolve('public', 'views', 'index.html'));
+});
+
+app.get('/about', (req,res) => {
+    //res.sendFile(resolve('public', 'views', 'index.html'))
+    res.sendFile(resolve('public', 'views', 'about.html'));
+});
+
+app.get('/contactUs', (req,res) => {
+    //res.sendFile(resolve('public', 'views', 'index.html'))
+    res.sendFile(resolve('public', 'views', 'contactUs.html'));
 });
 
 app.get('*', (req,res) => {

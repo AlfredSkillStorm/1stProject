@@ -7,12 +7,13 @@ router.get('/add', async (req, res) => {
     try{
         //const companies = await getAllCompanies();
         res.sendFile(resolve('public', 'views', 'addCompany.html'));
+        //res.redirect('/smallCompany/add');
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
-router.get('/:name', async (req, res) => {
+router.put('/:name', async (req, res) => {
     try{
         console.log("Inside findWarehouse route");
         //const data = await findWarehouse('myWarehouse');
