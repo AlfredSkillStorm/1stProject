@@ -4,7 +4,7 @@ function getItems(warehouse, companyName){
     const itemTable = document.createElement('table');
     const tableBody = document.createElement('tbody');
 
-    itemTable.id = companyName;
+    //itemTable.id = companyName;
 
     //below code to create first row headers
     const firstRow = document.createElement('tr');
@@ -20,17 +20,17 @@ function getItems(warehouse, companyName){
     firstRow.append(itemPriceHeader);
     firstRow.append(deleteItem);
     
-    tableDiv.className = 'tableData';
+    //tableDiv.className = 'tableData';
     //console.log(itemTable);
     //console.log(items);
 
-    items.style.display = "none"
-    //console.log('Printing warehouse details \n');
-    //console.log(warehouse);
-    if (warehouse.items.length === 0){
-        items.textContent = 'No items in warehouse!';
-        return items;
-    }
+    // items.style.display = "none"
+    // //console.log('Printing warehouse details \n');
+    // //console.log(warehouse);
+    // if (warehouse.items.length === 0){
+    //     items.textContent = 'No items in warehouse!';
+    //     return items;
+    // }
     
 
     for(item of warehouse.items){

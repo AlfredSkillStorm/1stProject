@@ -1,13 +1,12 @@
 const mongoose = require('mongoose');
 const SmallCompany = require('../models/SmallCompany.js');
 
-const addItem = async (warehouseName,{itemName, price, companyName}) => {
+const addItem = async (name, warehouseName, {itemName, price}) => {
     try{
         await mongoose.connect(process.env.ATLAS_URL);
-        const set = {itemName: itemName, price: price, name: companyName};
         const item = {itemName, price};
         
-        const smallCompany = await SmallCompany.findOne({name: set.name});
+        const smallCompany = await SmallCompany.findOne({name});
         
         const warehouses = smallCompany.warehouses;
         const filteredWarehouse= warehouses.filter(warehouse => warehouse.warehouseName === warehouseName);
@@ -15,7 +14,7 @@ const addItem = async (warehouseName,{itemName, price, companyName}) => {
         const items = warehouse.items;
         items.push(item);
         
-        await SmallCompany.findOneAndUpdate({name: set.name},{warehouses: warehouses});
+        await SmallCompany.findOneAndUpdate({name},{warehouses: warehouses});
         
         mongoose.connection.close();
         
@@ -27,7 +26,7 @@ const addItem = async (warehouseName,{itemName, price, companyName}) => {
     }
 };
 
-const deleteItem = async (name, {warehouseName, itemName}) => {
+const deleteItem = async (name, warehouseName, itemName) => {
     try {
         await mongoose.connect(process.env.ATLAS_URL);
         const smallCompany = await SmallCompany.findOne({name});

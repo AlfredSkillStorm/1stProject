@@ -33,5 +33,30 @@
     <div class="container">
         <a type="button" class="btn btn-primary btn-lg btn-block" href="" id="addWarehouseButton">Add Warehouse</a>
     </div>
+
+    <!-- Modal to pull up item form-->
+    <div class="modal" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="addItemModalLabel">Add Item</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id='addItemForm' action="/item/" method="POST">
+                        <label>Item name: </label>
+                        <input type="text" name="itemName">
+                        <label>Price: </label>
+                        <input type="text" name="price">
+                        <input type="submit" value="Add Item">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary btn-danger" id="deleteButton" value="i">Delete</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
