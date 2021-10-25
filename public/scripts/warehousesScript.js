@@ -109,6 +109,9 @@ function getWarehouses(){
 
             for(wr of warehouses){
 
+                //Max space of warehouse
+                let maxQuantity = wr.maxLoad;
+
                 //Name of warehouse
                 let textWarehouse = wr.warehouseName;
 
@@ -133,6 +136,19 @@ function getWarehouses(){
                     tabContent.className = 'tab-pane fade';
                     navButton.setAttribute('aria-controls','false');
                 }
+
+                //div to show available warehouse space
+                const progressContainer = document.createElement('div');
+                progressContainer.className = 'progress';
+
+                const progress = document.createElement('div');
+                progress.className="progress-bar";
+                progress.setAttribute('role','progressbar');
+                progress.style.width = `${(25/100)*100}%`;
+                progress.setAttribute('aria-valuemin', 0);
+                progress.setAttribute('aria-valuemax', 100);
+                progress.textContent = `0/${maxQuantity}`;
+                progressContainer.append(progress);
 
                 //setting navButton attributes
                 navButton.id =`nav-${altTextWarehouse}-tab`;
@@ -169,6 +185,7 @@ function getWarehouses(){
 
                 //append individual button and tabContent to holders
                 navDiv.append(navButton);
+                tabContent.append(progressContainer);
                 tabContent.append(itemsContainer);
                 tabContent.append(addItemButton);
                 tabContent.append(deleteButton);
