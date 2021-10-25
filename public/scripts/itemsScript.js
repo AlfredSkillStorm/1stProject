@@ -12,6 +12,8 @@ function getItems(wr){
     itemNameHeader.textContent = "Item Name";
     const itemPriceHeader = document.createElement('th');
     itemPriceHeader.textContent = "Price";
+    const amountHeader = document.createElement('th');
+    amountHeader.textContent = "Amount";
     const updateHeader = document.createElement('th');
     updateHeader.textContent = "Update";
     const deleteItem = document.createElement('th');
@@ -23,6 +25,7 @@ function getItems(wr){
         //Appending headers to first row
         firstRow.append(itemNameHeader);
         firstRow.append(itemPriceHeader);
+        firstRow.append(amountHeader);
         firstRow.append(updateHeader);
         firstRow.append(deleteItem);
         
@@ -34,6 +37,8 @@ function getItems(wr){
             itemName.textContent = item.itemName;
             const itemPrice = document.createElement('td');
             itemPrice.textContent = item.price;
+            const itemAmount = document.createElement('td');
+            itemAmount.textContent = item.amount;
 
             //button to pull up update item modal
             const updateItemCell = document.createElement('td');
@@ -64,6 +69,7 @@ function getItems(wr){
             deleteButton.append(deleteAction);
             itemDetails.append(itemName);
             itemDetails.append(itemPrice);
+            itemDetails.append(itemAmount);
             itemDetails.append(updateItemCell);
             itemDetails.append(deleteButton);
             itemsTableBody.append(itemDetails);
@@ -88,6 +94,7 @@ function updateItemModal(e){
     const itemForm = document.getElementById('updateItemForm');
     const updateItemName = document.getElementById('updateItemName');
     const updatePrice = document.getElementById('updatePrice');
+    const updateAmount = document.getElementById('updateAmount');
 
     console.log(itemForm.action);
 
@@ -104,6 +111,7 @@ function updateItemModal(e){
 
         updateItemName.value = children[0].innerText;
         updatePrice.value = children[1].innerText;
+        updateAmount.value = children[2].innerText;
     }
     else{ //we clicked the button
         itemForm.action = `${updateURL}${companyHeader.textContent}&${e.target.value}`;
@@ -116,6 +124,7 @@ function updateItemModal(e){
 
         updateItemName.value = children[0].innerText;
         updatePrice.value = children[1].innerText;
+        updateAmount.value = children[2].innerText;
     }
     
     console.log(itemForm.action);
@@ -152,45 +161,42 @@ function deleteWarehouseItem(e){
 }
 
 function assignOnClick(){
+    const addButton = document.getElementById('addButton');
+    addButton.onclick = checkItemExistsAdd;
     const updateButton = document.getElementById('updateButton');
     updateButton.onclick = checkItemExists;
+}
+
+function checkItemExistsAdd(e){
+    console.log('INSIDE THE FUNCTION!!!');
+
+    const values = document.getElementById('addItemForm').action.split('&');
+    const addItemName = document.getElementById('itemName').value;
+
+    const itemExists = document.getElementById(values[1]+addItemName);
+
+    console.log(itemExists);
+
+    if(itemExists !== null){
+        const error = document.getElementById('errorMessageAdd');
+        error.textContent = 'Item already exists!';
+        e.preventDefault();
+    }
 }
 
 function checkItemExists(e){
     console.log('INSIDE THE FUNCTION!!!');
 
-    const companyHeader = document.getElementById('companyName').textContent;
     const values = document.getElementById('updateItemForm').action.split('&');
     const updateItemName = document.getElementById('updateItemName').value;
 
     const itemExists = document.getElementById(values[1]+updateItemName);
 
-    console.log(itemExists);
-
-    //console.log(values[2]);
-    //console.log(updateItemName);
-    //console.log(values[2] === updateItemName);
+    //console.log(itemExists);
     
     if(itemExists !== null && updateItemName !== values[2]){
         const error = document.getElementById('errorMessage');
         error.textContent = 'Item already exists!';
         e.preventDefault();
     }
-
-    //console.log(values[2]);
-    //console.log(updateItemName);
-
-    // const xhr = new XMLHttpRequest();
-
-    // xhr.onload = function() {
-    //     if(xhr.status === 500 && values[2] !== updateItemName){
-    //         console.log('Item exists!');
-    //         const p = document.getElementById('errorMessage');
-    //         p.textContent = 'Item already exists!';
-    //         e.preventDefault();
-    //     }
-    // }
-
-    // xhr.open('GET',`/item/find/${companyHeader}&${values[1]}&${updateItemName}`);
-    // xhr.send();
 }

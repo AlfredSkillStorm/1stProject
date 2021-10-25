@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const SmallCompany = require('../models/SmallCompany.js');
 
-const addItem = async (name, warehouseName, {itemName, price}) => {
+const addItem = async (name, warehouseName, {itemName, price, amount}) => {
     try{
         await mongoose.connect(process.env.ATLAS_URL);
-        const item = {itemName, price};
+        const item = {itemName, price, amount};
         
         const smallCompany = await SmallCompany.findOne({name});
         
@@ -86,6 +86,7 @@ const itemExists = async (name, warehouseName, itemName) => {
         console.log(isItemHere);
         //console.log(selectedItem);
 
+        //if item does not exist after being filtered
         if(isItemHere === []){
             console.log('No item, can proceed');
         }
@@ -100,7 +101,7 @@ const itemExists = async (name, warehouseName, itemName) => {
     }
 };
 
-const updateItem= async (name, warehouseName, oldItemName, { itemName, price} ) => {
+const updateItem= async (name, warehouseName, oldItemName, { itemName, price, amount} ) => {
     try{
         await mongoose.connect(process.env.ATLAS_URL);
         
@@ -122,6 +123,7 @@ const updateItem= async (name, warehouseName, oldItemName, { itemName, price} ) 
         //setting new values
         smallCompany.warehouses.id(warehouse._id).items.id(selectedItem[0]._id).itemName = itemName;
         smallCompany.warehouses.id(warehouse._id).items.id(selectedItem[0]._id).price = price;
+        smallCompany.warehouses.id(warehouse._id).items.id(selectedItem[0]._id).amount = amount;
         
         await mongoose.connect(process.env.ATLAS_URL);
         await smallCompany.save();

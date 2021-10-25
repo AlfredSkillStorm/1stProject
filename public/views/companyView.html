@@ -54,12 +54,17 @@
                             <label class='form-label' for='price'>Price <label>
                             <input type="text" name="price" class='form-control' placeholder='.99, 3.99, etc...' id='price'>
                         </div>
+                        <div class='mx-auto'>
+                            <label class='form-label' for='amount'>Amount <label>
+                            <input type="text" name="amount" class='form-control' placeholder='1, 20, 100, etc...' id='amount'>
+                        </div>
                         <div class ='d-grid gap-2 col-3 mx-auto'>
-                            <input type="submit" value="Submit" class='btn btn-primary'>   
+                            <button id ='addButton' type="submit" value="Submit" class='btn btn-primary'>Submit</button>
                         </div>  
                     </form>
                 </div>
                 <div class="modal-footer">
+                <small id='errorMessageAdd' class="form-text text-danger"> </small>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -85,13 +90,17 @@
                             <label class='form-label' for='updatePrice'>Price <label>
                             <input type="text" name="price" class='form-control' placeholder='.99, 3.99, etc...' id='updatePrice'>
                         </div>
+                        <div class='mx-auto'>
+                            <label class='form-label' for='updateAmount'>Amount <label>
+                            <input type="text" name="amount" class='form-control' placeholder='1, 20, 100, etc...' id='updateAmount'>
+                        </div>
                         <div class ='d-grid gap-2 col-3 mx-auto'>
                             <button id ='updateButton' type="submit" value="Submit" class='btn btn-primary'>Submit</button>
                         </div>  
                     </form>
                 </div>
                 <div class="modal-footer">
-                <small id='errorMessage' class="form-text text-danger"> </small>
+                <small id='errorMessageAdd' class="form-text text-danger"> </small>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <!-- <button type="button" class="btn btn-primary btn-danger" id="deleteButton" value="i">Delete</button> -->
                 </div>

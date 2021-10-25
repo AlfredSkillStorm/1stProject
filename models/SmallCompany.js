@@ -11,7 +11,8 @@ const smallCompanySchema = new Schema({
         maxLoad: Number,
         items: [{
             itemName: String,
-            price: Number
+            price: Number,
+            amount: Number
         }]
     }]
 })
