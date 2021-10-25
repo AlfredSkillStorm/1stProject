@@ -47,6 +47,8 @@ function getItems(wr){
             itemPrice.textContent = item.price;
             const itemAmount = document.createElement('td');
             itemAmount.textContent = item.amount;
+
+            //id to reference original amount
             itemAmount.id = wr.warehouseName+item.itemName+'amount';
 
             //button to pull up update item modal
@@ -221,9 +223,14 @@ function checkItemExistsAdd(e){
 function checkItemExists(e){
     console.log('INSIDE THE Update FUNCTION!!!');
 
+    //splits the action attribute into 3 strings with delimiter '&'
+    //values[0] contains https...{companyName}
+    //values[1] contains warehouseName
+    //values[2] contains itemName(old)
     const values = document.getElementById('updateItemForm').action.split('&');
     const updateItemName = document.getElementById('updateItemName').value;
     const updateItemAmount = document.getElementById('updateAmount').value;
+    const orgItemAmount = document.getElementById(`${values[1]}${values[2]}amount`).textContent;
 
     const itemExists = document.getElementById(values[1]+updateItemName);
 
@@ -233,6 +240,13 @@ function checkItemExists(e){
     let numItems = parseInt(itemQuantities[0]);
     let totalItems = parseInt(itemQuantities[1]);
     let amt = parseInt(updateItemAmount);
+    let orgAmt = parseInt(orgItemAmount);
+
+    //remove orgAmt first...
+    numItems -= orgAmt;
+
+    //then calculate new number of items with updatedItemAmount
+    let result = numItems + amt;
     //console.log(itemExists);
     
     if(itemExists !== null && updateItemName !== values[2]){
@@ -240,7 +254,7 @@ function checkItemExists(e){
         error.textContent = 'Item already exists!';
         e.preventDefault();
     }
-    else if((numItems + amt) > totalItems){
+    else if((result) > totalItems){
         const error = document.getElementById('errorMessageUpdate');
         error.textContent = `Not enough space! ${totalItems - numItems} left in warehouse!`;
         e.preventDefault();
