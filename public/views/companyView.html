@@ -49,15 +49,15 @@
                     <form id='addItemForm' action="/item/" method="POST">
                         <div class='mx-auto'>
                             <label class='form-label' for='itemName'>Item name <label>
-                            <input type="text" name="itemName" class='form-control' placeholder='Item Name' id='itemName'>
+                            <input type="text" name="itemName" class='form-control' placeholder='Item Name' id='itemName' required>
                         </div>
                         <div class='mx-auto'>
                             <label class='form-label' for='price'>Price <label>
-                            <input type="text" name="price" class='form-control' placeholder='.99, 3.99, etc...' id='price'>
+                            <input type="text" name="price" class='form-control' placeholder='.99, 3.99, etc...' id='price' required>
                         </div>
                         <div class='mx-auto'>
                             <label class='form-label' for='amount'>Amount <label>
-                            <input type="text" name="amount" class='form-control' placeholder='1, 20, 100, etc...' id='amount'>
+                            <input type="text" name="amount" class='form-control' placeholder='1, 20, 100, etc...' id='amount' required>
                         </div>
                         <div class ='d-grid gap-2 col-3 mx-auto'>
                             <button id ='addButton' type="submit" value="Submit" class='btn btn-primary'>Submit</button>
