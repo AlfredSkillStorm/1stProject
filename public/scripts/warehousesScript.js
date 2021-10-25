@@ -141,13 +141,16 @@ function getWarehouses(){
                 const progressContainer = document.createElement('div');
                 progressContainer.className = 'progress';
 
+                const itemQuanity = getItemQuantity(wr);
+
                 const progress = document.createElement('div');
+                progress.id=`${wr.warehouseName}Quantity`;
                 progress.className="progress-bar";
                 progress.setAttribute('role','progressbar');
-                progress.style.width = `${(25/100)*100}%`;
+                progress.style.width = `${(itemQuanity/maxQuantity)*100}%`;
                 progress.setAttribute('aria-valuemin', 0);
                 progress.setAttribute('aria-valuemax', 100);
-                progress.textContent = `0/${maxQuantity}`;
+                progress.textContent = `${itemQuanity}/${maxQuantity}`;
                 progressContainer.append(progress);
 
                 //setting navButton attributes

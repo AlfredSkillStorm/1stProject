@@ -1,3 +1,11 @@
+function getItemQuantity(wr){
+    let total = 0;
+    for(item of wr.items){
+        total += item.amount;
+    }
+    return total;
+}
+
 function getItems(wr){
     //grab items and store them in variable
     const items = wr.items;
@@ -39,6 +47,7 @@ function getItems(wr){
             itemPrice.textContent = item.price;
             const itemAmount = document.createElement('td');
             itemAmount.textContent = item.amount;
+            itemAmount.id = wr.warehouseName+item.itemName+'amount';
 
             //button to pull up update item modal
             const updateItemCell = document.createElement('td');
@@ -150,6 +159,20 @@ function deleteWarehouseItem(e){
     
     xhr.onload = function() {
         if (xhr.status === 200) {
+            
+            //array of 2 numbers; number of items in warehouse / total items warehouse can hold
+            const itemQuantities = document.getElementById(warehouseName+'Quantity').textContent.split('/');
+            const amt = document.getElementById(warehouseName+itemName+'amount').textContent;
+
+            const numItems = parseInt(itemQuantities[0]);
+            const totalItems = parseInt(itemQuantities[1]);
+            const count = parseInt(amt);
+            const result = numItems - count;
+
+            //update progressBar
+            document.getElementById(warehouseName+'Quantity').textContent = `${result}/${totalItems}`;
+            document.getElementById(warehouseName+'Quantity').style.width = `${(result/totalItems)*100}%`;
+
             //button -> td -> tr -> tbody 
             //remove the item from the table
             e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
@@ -172,31 +195,54 @@ function checkItemExistsAdd(e){
 
     const values = document.getElementById('addItemForm').action.split('&');
     const addItemName = document.getElementById('itemName').value;
+    const addItemAmount = document.getElementById('amount').value;
 
     const itemExists = document.getElementById(values[1]+addItemName);
 
-    console.log(itemExists);
+    //array of 2 numbers; number of items in warehouse / total items warehouse can hold
+    const itemQuantities = document.getElementById(values[1]+'Quantity').textContent.split('/');
+
+    let numItems = parseInt(itemQuantities[0]);
+    let totalItems = parseInt(itemQuantities[1]);
+    let amt = parseInt(addItemAmount);
 
     if(itemExists !== null){
         const error = document.getElementById('errorMessageAdd');
         error.textContent = 'Item already exists!';
         e.preventDefault();
     }
+    else if((numItems + amt) > totalItems){
+        const error = document.getElementById('errorMessageAdd');
+        error.textContent = `Not enough space! ${totalItems-numItems} left in warehouse!`;
+        e.preventDefault();
+    }
 }
 
 function checkItemExists(e){
-    console.log('INSIDE THE FUNCTION!!!');
+    console.log('INSIDE THE Update FUNCTION!!!');
 
     const values = document.getElementById('updateItemForm').action.split('&');
     const updateItemName = document.getElementById('updateItemName').value;
+    const updateItemAmount = document.getElementById('updateAmount').value;
 
     const itemExists = document.getElementById(values[1]+updateItemName);
 
+    //array of 2 numbers; number of items in warehouse / total items warehouse can hold
+    const itemQuantities = document.getElementById(values[1]+'Quantity').textContent.split('/');
+
+    let numItems = parseInt(itemQuantities[0]);
+    let totalItems = parseInt(itemQuantities[1]);
+    let amt = parseInt(updateItemAmount);
     //console.log(itemExists);
     
     if(itemExists !== null && updateItemName !== values[2]){
         const error = document.getElementById('errorMessage');
         error.textContent = 'Item already exists!';
+        e.preventDefault();
+    }
+    else if((numItems + amt) > totalItems){
+        const error = document.getElementById('errorMessageUpdate');
+        error.textContent = `Not enough space! ${totalItems - numItems} left in warehouse!`;
         e.preventDefault();
     }
 }
