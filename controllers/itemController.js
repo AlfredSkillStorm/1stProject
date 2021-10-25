@@ -54,7 +54,7 @@ const deleteItem = async (name, warehouseName, itemName) => {
         console.log(smallCompany);
 
         console.log('preparing to delete');
-        await mongoose.connect(process.env.ATLAS_URL);4
+        await mongoose.connect(process.env.ATLAS_URL);
         await smallCompany.save();
 
         console.log('finished deleting');
@@ -67,7 +67,78 @@ const deleteItem = async (name, warehouseName, itemName) => {
     }
 };
 
+const itemExists = async (name, warehouseName, itemName) => {
+    try{
+        await mongoose.connect(process.env.ATLAS_URL);
+        
+        const smallCompany = await SmallCompany.findOne({name});
+        
+        const warehouses = smallCompany.warehouses;
+        const filteredWarehouse= warehouses.filter(warehouse => warehouse.warehouseName === warehouseName);
+        const warehouse = filteredWarehouse[0];
+        const items = warehouse.items;
+
+        console.log(items);
+
+        const isItemHere = items.filter(item => item.itemName === itemName);
+        //const selectedItem = items.filter(item => item.itemName === oldItemName);
+        
+        console.log(isItemHere);
+        //console.log(selectedItem);
+
+        if(isItemHere === []){
+            console.log('No item, can proceed');
+        }
+        else{
+            console.log('Item already exists!');
+            throw {status: 500, error: `Item already exists`};
+        }
+        return;
+    } catch(err){
+        mongoose.connection.close();
+        return err;
+    }
+};
+
+const updateItem= async (name, warehouseName, oldItemName, { itemName, price} ) => {
+    try{
+        await mongoose.connect(process.env.ATLAS_URL);
+        
+        const smallCompany = await SmallCompany.findOne({name});
+        
+        const warehouses = smallCompany.warehouses;
+        const filteredWarehouse= warehouses.filter(warehouse => warehouse.warehouseName === warehouseName);
+        const warehouse = filteredWarehouse[0];
+        const items = warehouse.items;
+
+        console.log(items);
+
+        const isItemHere = items.filter(item => item.itemName === itemName);
+        const selectedItem = items.filter(item => item.itemName === oldItemName);
+        
+        console.log(isItemHere);
+        console.log(selectedItem);
+
+        //setting new values
+        smallCompany.warehouses.id(warehouse._id).items.id(selectedItem[0]._id).itemName = itemName;
+        smallCompany.warehouses.id(warehouse._id).items.id(selectedItem[0]._id).price = price;
+        
+        await mongoose.connect(process.env.ATLAS_URL);
+        await smallCompany.save();
+        
+        mongoose.connection.close();
+        
+        console.log("Inside updateItem. Returning now...");
+        return {status: 200, message: `Item updated successfully!`};
+    } catch(err){
+        mongoose.connection.close();
+        return err;
+    }
+};
+
 module.exports = {
     addItem,
-    deleteItem
+    deleteItem,
+    updateItem,
+    itemExists
 }

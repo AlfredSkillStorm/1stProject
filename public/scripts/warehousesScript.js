@@ -58,7 +58,7 @@ function deleteWarehouse(e){
 //url to form dynamic path to adding an item
 const myURL = 'http://localhost:8081/item/';
 
-//function to dynamically path to a 
+//function to dynamically path to company and warehouse
 function addItemModal(e){
 
     const companyHeader = document.getElementById('companyName');
@@ -194,5 +194,6 @@ function getWarehouses(){
 
 window.addEventListener('DOMContentLoaded', () => {
     setUpWarehouseButton();
+    assignOnClick();
     getWarehouses();
 });
