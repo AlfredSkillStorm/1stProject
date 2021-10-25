@@ -10,10 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="../scripts/warehousesScript.js"></script>
     <script src="../scripts/itemsScript.js"></script>
+    <link rel="stylesheet" href="../styles/index.css">
 </head>
-<body>
+<body class ='body-warehouse'>
     
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom bg-white">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
           <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
           <span class="fs-4">CompanyInventory</span>
@@ -26,13 +27,13 @@
           <li class="nav-item"><a href="/contactUs" class="nav-link">Contact Us</a></li>
         </ul>
     </header>
-    <div class='container justify-content-center'>
-        <h1 id="companyName">PWC Inventory</h1>
+    <div class='container justify-content-center bg-white'>
+        <h1 id="companyName" class='text-center'>PWC Inventory</h1>
     </div> 
-    <div class='container mb-3' id='container'>
+    <div class='container mb-3 bg-white' id='container'>
         
     </div>
-    <div class="container">
+    <div class="d-grid gap-2 col-3 mx-auto">
         <a type="button" class="btn btn-primary btn-lg" href="" id="addWarehouseButton">Add Warehouse</a>
     </div>
 

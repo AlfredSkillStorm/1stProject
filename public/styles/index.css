@@ -1,26 +1,3 @@
-/* .smallCompanies {
-    border: 3px solid black;
-}
-
-.addItemForm {
-    border: 3px solid darkblue;
-}
-
-.warehouseDiv {
-    display: flex;
-    flex-direction: column;
-    border: 3px solid black;
-    background-color: gray;
-    font-size: large;
-    margin: 5px;
-    text-align: center;
-}
-
-.warehousesContainer {
-    display: flex;
-    flex-direction: column;
-} */
-
 .companyContainer {
     /* display:flex;
     flex-direction: column; */
@@ -31,50 +8,18 @@
     background-image: url('../images/companyImage.jpg');
 }
 
-/* .itemsContainer {
-    display: flex;
-    flex-direction: column;
-    background-color: green; 
+.body-about{
+    background-image: url('../images/about.jpg');
+}
+
+.body-contactUs{
+    background-image: url('../images/contactUs.jpg');
+}
+
+.body-warehouse{
+    background-image: url('../images/warehouse.jpg');
+}
+
+.body-form{
     align-items: center;
 }
-
-.tableData{
-    display: flex;
-    flex-direction: column;
-} 
-
-th {
-    border: 3px solid black;
-}
-
-td {
-    border: 3px solid black;
-}
-
-.companyForm {
-    background-color: khaki;
-    border: 2px solid black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.PWC {
-    background-color: lightgray;
-    border: 2px solid black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-body{
-    background-color: lightslategrey;
-}
-
-.addWarehouseForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: moccasin;
-    border: 2px solid moccasin;
-} */
